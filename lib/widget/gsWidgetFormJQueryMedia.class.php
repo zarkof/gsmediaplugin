@@ -34,7 +34,12 @@ class gsWidgetFormJQueryMedia extends sfWidgetFormInput
 	{
 	    return array(
 	    	'/gsMediaPlugin/js/jquery.gsmedia.widget.js', 
-	    	'jquery/ui/ui.all.js',
+	    	'jquery/ui/ui.core.js',
+	    	'jquery/ui/ui.dialog.js',
+	    	'jquery/ui/ui.draggable.js',
+	    	'jquery/ui/ui.resizable.js',
+	    	'jquery/ui/effects.core.js',
+	    	'jquery/ui/effects.slide.js',
 	   	);
 	}
 	
