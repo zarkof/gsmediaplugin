@@ -58,18 +58,28 @@ function url_for_admin_file_action( gsMediaFile $media, $action, $options = arra
 	}
 }
 
-function url_for_media( gsMediaFile $file, $format = 'original', $absolute = false)
+function url_for_media( gsMediaFile $file, $format = 'original', $type = 'relative')
 {	
-	$prefix = sfConfig::get('app_gsmedia_url_prefix', sfContext::getInstance()->getRequest()->getRelativeUrlRoot() );
-	if ( substr($prefix, -1) != '/' ) $prefix .= '/';
-	
 	$folder_path = $file->getgsMediaFolder()->getRelativePath();
 	if ( substr($folder_path, -1) != '/' ) $folder_path .= '/';
 	
 	$file_path = $file->getFormatPath( $format );
 	if ( substr($file_path, -1) != '/' ) $file_path .= '/';
 	
-	return $prefix.$folder_path.$file_path.$file->getFilename();
+	switch ( $type )
+	{
+		case 'absolute':
+			$url = _compute_public_path($file->getFilename(), $folder_path.$file_path, '', true);
+			break;
+		case 'relative':
+			$url = _compute_public_path($file->getFilename(), $folder_path.$file_path, '', false);
+			break;
+		case 'web_relative':
+			$url = $folder_path.$file_path.$file->getFilename();
+			break;
+	}
+	
+	return $url;	
 }
 
 function media_admin_navigation( $media, $level = 0)

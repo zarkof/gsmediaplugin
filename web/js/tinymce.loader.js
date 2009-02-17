@@ -2,10 +2,10 @@ var gsMediaReturn = {
 	init: function () {
 		//
 	},
-	submit: function ( url_absolute, url_relative, title, description ) {
+	submit: function ( url, title, description ) {
 		// we are in a tinyMCEPopup !
 		win = tinyMCEPopup.getWindowArg("window");
-		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url_absolute;
+		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
 		
 		if ( win.document.forms[0].title) win.document.forms[0].title.value = title;
 		if ( win.document.forms[0].alt) win.document.forms[0].alt.value = description;

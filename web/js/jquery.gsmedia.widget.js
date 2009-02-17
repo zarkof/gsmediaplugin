@@ -33,9 +33,7 @@
 						$('#'+id).val( value );
 						$('#'+container_id).dialog('close');
 						$('#'+container_id).remove();
-						$('#'+preview_id).remove();
-						
-						$('#'+button_id).after('<div id="'+preview_id+'"><img src="'+$('#'+id).val()+'"/></div>');
+						$('#'+preview_id).attr('src', $('#'+id).val() );
 					};
 				});
 				
