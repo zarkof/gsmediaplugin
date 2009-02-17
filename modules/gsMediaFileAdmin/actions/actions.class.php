@@ -3,7 +3,7 @@ class gsMediaFileAdminActions extends sfActions
 {
 	public function preExecute()
 	{
-		$this->getContext()->getRouting()->setDefaultParameter('gs_loader', $this->getRequestParameter('gs_loader') );
+		$this->getContext()->getRouting()->setDefaultParameter('gs_loader', $this->getRequestParameter('gs_loader', 'gsmedia') );
 		
 		$sf_response = $this->getContext()->getResponse();
 
