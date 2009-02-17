@@ -1,0 +1,4 @@
+file:
+  enabled:        one
+  with_layout:    false
+  lifetime:       86400  

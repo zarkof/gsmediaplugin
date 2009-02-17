@@ -1,0 +1,4 @@
+all:
+  stylesheets: [/gsMediaPlugin/css/media.css]
+  javascripts: [jquery/ui/ui.all.js]
+  layout: %SF_PLUGINS_DIR%/gsMediaPlugin/templates/layout

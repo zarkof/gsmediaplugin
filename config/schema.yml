@@ -1,0 +1,29 @@
+propel:
+  _attributes:      { package: plugins.gsMediaPlugin.lib.model }
+
+  gs_media_folder:
+    _attributes:       { phpName: gsMediaFolder, treeMode: NestedSet}
+    id:                ~
+    name:              { type: varchar, size: 255, required: true }
+    description:       { type: longvarchar }
+    relative_path:     { type: varchar, size: 255, index: unique, required: true }
+    tree_parent:       { type: integer, foreignTable: gs_media_folder, foreignReference: id, onDelete: cascade }
+    tree_left:         { type: integer, nestedSetLeftKey: true, index: true }
+    tree_right:        { type: integer, nestedSetRightKey: true, index: true }
+    created_at:        ~
+    updated_at:        ~
+
+  gs_media_file:
+    _attributes:       { phpName: gsMediaFile }
+    id:                ~
+    folder_id:         { type: integer, foreignTable: gs_media_folder, foreignReference: id, required: true, onDelete: cascade }
+    filename:          { type: varchar, size: 255, required: true }
+    name:              { type: varchar, size: 255, required: true }
+    description:       { type: longvarchar }
+    author:            { type: varchar, size: 255 }
+    content_type:      { type: varchar, size: 255, index: true, required: true }
+    created_at:        ~
+    updated_at:        ~
+    
+    _uniques:
+      u_folder_filename: [folder_id, filename]

@@ -1,0 +1,204 @@
+@IMPORT url("form.css");
+/* global layout */
+.gsmedia {
+	margin: 10px; }
+
+.gsmedia .navigation {
+	margin: 10px 0; }
+	
+.gsmedia a, .gsmedia a:link, .gsmedia a:visited, .gsmedia a:hover {
+	color: inherit; }
+	
+/* media folder miniatures */
+.media_miniatures li {
+	position: relative;
+	float: left;
+	width: 96px;
+	height: 112px;
+	margin: 1px;
+	text-align: center; }
+
+.media_miniatures li a {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%; 
+	border: 1px solid #fff; }
+	
+.media_miniatures li a:hover {
+	text-decoration: none;
+	background-color: #ddd;
+	border-color: #ccc; }
+		
+.media_miniatures .media_folder .miniature { 
+	display: block;
+	width: 64px;
+	height: 64px; 
+	margin: 8px auto 2px auto; }
+
+.media_miniatures .media_folder .miniature {
+	background-image: url(images/icons/miniatures/folder.png);
+	background-position: center 24px;
+	background-repeat: no-repeat; }
+	
+.media_miniatures .media_folder_return .miniature {
+	background-image: url(images/icons/miniatures/folder_back.png);
+	background-position: center 24px;
+	background-repeat: no-repeat; }
+
+.media_miniatures .media_file .miniature {
+	display: block;
+	position: relative;
+	width: 64px;
+	height: 64px;
+	margin: 8px auto 2px auto; 
+	background: #fff url(images/icons/miniatures/empty_image.png) no-repeat center center;
+	border: 1px solid #999; }
+	
+.center-table {
+	display: table; 
+	height: 100%; }
+	
+.center-cell {
+	display: table-cell; 
+	vertical-align: middle; }
+	
+.media_miniatures .media_file .miniature IMG {
+	display: inline; }
+
+.media_miniatures li .foldername,
+.media_miniatures li .filename {
+	display: block;
+	position: relative;
+	width: 100%;
+	text-align: center;
+	font-size: 0.9em; }
+	
+.media_miniatures li .foldername {
+	bottom: 0em; }
+
+
+
+/* media actions */
+.media_actions {
+	display: block;
+	clear: left;
+	padding: 10px;
+	margin-bottom: 10px;
+	background: #ccc; }
+	
+.media_actions a {
+	display: block;
+	float: left; 
+	width: 64px;
+	border: 1px solid #ccc;
+	padding: 40px 0 5px 0; 
+	background-position: center 5px;
+	background-repeat: no-repeat;
+	font-size: 0.9em;
+	text-align: center; }
+	
+.media_actions a:hover {
+	text-decoration: none;
+	background-color: #ddd;
+	border: 1px solid #aaa; }	
+		
+.media_actions .back {
+	background-image: url(images/icons/actions/back.png); }
+	
+.media_actions .preview {
+	background-image: url(images/icons/actions/preview.png); }
+
+.media_actions .edit {
+	background-image: url(images/icons/actions/edit.png); }
+
+.media_actions .replace {
+	background-image: url(images/icons/actions/replace.png); }
+	
+.media_actions .upload {
+	background-image: url(images/icons/actions/upload.png); }
+	
+.media_actions .download {
+	background-image: url(images/icons/actions/download.png); }
+	
+.media_actions .delete {
+	background-image: url(images/icons/actions/delete.png); }
+	
+.media_actions .create {
+	background-image: url(images/icons/actions/create.png); }
+	
+.media_actions .select {
+	background-image: url(images/icons/actions/select.png); }
+
+/* media actions */
+.format_actions .title {
+	margin-bottom: 10px; }
+	
+.format_actions {
+	display: block;
+	float: left;
+	clear: left;
+	padding: 10px;
+	margin-bottom: 10px;
+	background: #ccc; }
+	
+.format_actions a {
+	display: block;
+	float: left; 
+	width: 64px;
+	border: 1px solid #ccc;
+	padding: 40px 0 5px 0; 
+	background-position: center 5px;
+	background-repeat: no-repeat;
+	font-size: 0.9em;
+	text-align: center; }
+	
+.format_actions a:hover {
+	text-decoration: none;
+	background-color: #ddd;
+	border: 1px solid #aaa; }	
+		
+.format_actions .selected {
+	background-color: #aaa;
+	border: 1px solid #777; }		
+		
+.format_actions .preview {
+	background-image: url(images/icons/actions/preview.png); }
+
+.media_view .preview {
+	display: block; }
+	
+.media_view .preview .image {
+	display: block;
+	width: auto;
+	height: auto;
+	overflow: auto; }
+	
+.media_view .preview .meta_data {
+	display: block;
+	background: #000;
+	color: #aaa;
+	padding: 10px; }
+	
+.media_view .preview .meta_data .file {
+	float: left;
+	color: #fff; }
+
+.media_view .preview .meta_data .author {
+	float: right; 
+	text-align: right; }
+
+.media_view .preview .meta_data .description {
+	display: block;
+	clear: both;
+	text-align: left;
+	padding-top: 10px;
+	font-size: 0.8em; }	
+	
+.media_view .unknown_media {
+	display: block;
+	width: 100px;
+	height: 100px; 
+	background: #fff url(images/icons/miniatures/empty_image.png) no-repeat center center; }
+	
+	

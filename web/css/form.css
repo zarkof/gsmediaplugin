@@ -1,0 +1,31 @@
+.media_form {
+	display: block;
+	padding: 10px; 
+	background: #eee; }
+
+.media_form .message {
+	display: inline;
+	position: relative; } 
+	
+.media_form .notice {
+	padding: 5px 10px;
+	margin: 0 0 10px 0;
+	background: #269F00;
+	color: #fff; 
+	font-size: 1em; }
+
+.media_form th, .media_form td {
+	padding: 0 0 10px 0; }
+
+.media_form th {
+	width: 110px;
+	font-weight: bold;
+	font-size: 1em; 
+	color: #000; 
+	text-align: left;
+	vertical-align: top; }
+	
+.media_form td input, 
+.media_form td textarea, 
+.media_form td select {
+	padding: 2px;  }

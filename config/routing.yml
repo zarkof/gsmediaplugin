@@ -1,0 +1,7 @@
+gsMediaFileAdmin:
+  url: /media/admin/file/:action/:gs_loader/*
+  param: { module: gsMediaFileAdmin }
+  
+gsMediaFolderAdmin:
+  url: /media/admin/folder/:action/:gs_loader/*
+  param: { module: gsMediaFolderAdmin }  

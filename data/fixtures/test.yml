@@ -1,0 +1,4 @@
+gsMediaFolder:
+  root:
+    name:            root
+    relative_path:   media
