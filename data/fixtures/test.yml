@@ -2,3 +2,39 @@ gsMediaFolder:
   root:
     name:            root
     relative_path:   media
+    
+gsMediaFormat:
+  miniature:
+    name:            Miniature 64x64
+    code:            miniature
+    mimetype:        image/png
+    class:           gsMediaFormatImage
+    options:         { width: 64, height: 64, adapter: sfImageMagickAdapter }
+    
+  thumbnail: 
+    name:            Thumbnail 150x100
+    code:            thumbnail
+    mimetype:        image/jpeg
+    class:           gsMediaFormatImage
+    options:         { width: 150, height: 100, adapter: sfImageMagickAdapter }
+    
+  inline: 
+    name:            Inline 600xN
+    code:            inline
+    mimetype:        image/jpeg
+    class:           gsMediaFormatImage
+    options:         { width: 600, adapter: sfImageMagickAdapter }
+    
+  image_preview:
+    name:            Gallery Preview
+    code:            image_preview
+    mimetype:        image/jpeg
+    class:           gsMediaFormatImage
+    options:         { width: 800, height: 600, adapter: sfImageMagickAdapter }
+   
+   flash_preview:
+     name:           Video Flash Preview
+     code:           flash_preview
+     mimetype:       application/x-shockwave-flash
+     class:          gsMediaFormatFlash
+     options:        { width: 400, height: 300 }

@@ -27,3 +27,20 @@ propel:
     
     _uniques:
       u_folder_filename: [folder_id, filename]
+      
+  gs_media_file_format:
+    _attributes:       { phpName: gsMediaFileFormat }
+    file_id:           { type: integer, foreignTable: gs_media_file, foreignReference: id, required: true, onDelete: cascade }
+    format_id:         { type: integer, foreignTable: gs_media_format, foreignReference: id, required: true, onDelete: cascade }
+    created_at:        ~
+    
+  gs_media_format:
+    _attributes:       { phpName: gsMediaFormat }
+    id:                ~
+    name:              { type: varchar, size: 255, required: true }
+    code:              { type: varchar, size: 50, index: true, required: true }
+    mimetype:          { type: varchar, size: 255, index: true, required: true }
+    extention:         { type: varchar, size: 50, index: true, required: true }
+    class:             { type: varchar, size: 255, index: true, required: true }
+    settings:          { type: longvarchar }
+    
