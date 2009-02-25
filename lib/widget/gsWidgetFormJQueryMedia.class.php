@@ -11,14 +11,11 @@ class gsWidgetFormJQueryMedia extends sfWidgetFormInput
 		$id = $this->generateId($name);
 		$html = parent::render($name, $value, $attributes, $errors);
 		
-		if ( $value != '')
-		{
-			// create a preview image
-			$html .= 
-			'<div class="preview">'.
-				$this->renderTag('img', array_merge(array('id' => $id.'_preview', 'src' => $value, 'class' => 'preview'), $attributes) ).
-			'</div>';
-		}
+		// create a preview image
+		$html .= 
+		'<div class="preview">'.
+			$this->renderTag('img', array_merge(array('id' => $id.'_preview', 'src' => $value, 'class' => 'preview'), $attributes) ).
+		'</div>';
 		
 		$html .= '
 <script type="text/javascript">

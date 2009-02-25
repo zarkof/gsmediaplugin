@@ -2,6 +2,32 @@
 
 class gsMediaFolder extends BasegsMediaFolderNestedSet
 {
+	public function getFilesByOrder( $order = null )
+	{
+		$criteria = new Criteria();
+		
+		switch( $order )
+		{
+			case 'name':
+				$criteria->addAscendingOrderByColumn( gsMediaFilePeer::NAME );
+				break;
+			case 'filename':
+				$criteria->addAscendingOrderByColumn( gsMediaFilePeer::FILENAME );
+				break;
+			case 'id':
+				$criteria->addAscendingOrderByColumn( gsMediaFilePeer::ID );
+				break;
+			case 'date':
+				$criteria->addAscendingOrderByColumn( gsMediaFilePeer::CREATED_AT );
+				break;
+			default:
+				$criteria->addAscendingOrderByColumn( gsMediaFilePeer::CREATED_AT );
+				break;
+		}
+		
+		return $this->getgsMediaFiles( $criteria );
+	}
+	
 	public function __toString()
 	{
 		return $this->getName();

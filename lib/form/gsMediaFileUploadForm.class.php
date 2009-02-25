@@ -29,7 +29,7 @@ class gsMediaFileUploadForm extends BasegsMediaFileForm
 		
 		$this->validatorSchema['file'] = new sfValidatorFile(array(
 	  		'required'   => true,
-	        'max_size' => sfConfig::get('app_gsmedia_upload_max_size', 2048000),
+	        'max_size' => sfConfig::get('app_gsmedia_upload_max_size', 4096000),
 	  		'mime_types' => sfConfig::get('app_gsmedia_mime_types'),
 		));
 		

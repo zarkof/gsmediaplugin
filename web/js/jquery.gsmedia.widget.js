@@ -1,4 +1,4 @@
-(function($) {
+jQuery(function($) {
 	// plugin definition
 	$.fn.gsmedia = function(options) {
 		var settings = $.extend({}, $.fn.gsmedia.defaults, options);
@@ -29,14 +29,13 @@
 				});
 				
 				$('#'+iframe_id).load( function() {
-					this.contentWindow.gsmedia_callback = function( value ) {
+					top.gsmedia_callback = function( value ) {
 						$('#'+id).val( value );
 						$('#'+container_id).dialog('close');
 						$('#'+container_id).remove();
 						$('#'+preview_id).attr('src', $('#'+id).val() );
-					};
+					}
 				});
-				
 			});
 		});
 	}
@@ -45,4 +44,8 @@
 		width: 640,
 		height: 600
 	};
-})(jQuery);
+});
+
+jQuery(function($) {
+	gsmedia_callback = function(){};
+});

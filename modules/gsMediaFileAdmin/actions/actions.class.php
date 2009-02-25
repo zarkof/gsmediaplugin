@@ -7,14 +7,20 @@ class gsMediaFileAdminActions extends sfActions
 		
 		$sf_response = $this->getContext()->getResponse();
 
+		$this->getRequest()->setAttribute('selectable', false);
+		
 		switch ( $this->getRequest()->getParameter('gs_loader') )
 		{
-			case 'tinymce' :
-				$sf_response->addJavascript( '/'.sfConfig::get('sf_rich_text_js_dir', 'sf/tinymce/js').'/tiny_mce_popup.js' );
-				$sf_response->addJavascript( '/gsMediaPlugin/js/tinymce.loader.js' );
+			case 'tinymce':
+				$sf_response->addJavascript( '/'.sfConfig::get('sf_rich_text_js_dir', 'sf/tinymce/js').'/tiny_mce_popup.js', 'last' );
+				$sf_response->addJavascript( '/gsMediaPlugin/js/tinymce.loader.js', 'last' );
+				$this->setLayout( sfConfig::get('sf_plugins_dir').'/gsMediaPlugin/templates/layout' );
+				$this->getRequest()->setAttribute('selectable', true);
 				break;
-			case 'gsmedia' :
-				$sf_response->addJavascript( '/gsMediaPlugin/js/jquery.gsmedia.loader.js');
+			case 'gsmedia':
+				$sf_response->addJavascript( '/gsMediaPlugin/js/jquery.gsmedia.loader.js', 'last');
+				$this->setLayout( sfConfig::get('sf_plugins_dir').'/gsMediaPlugin/templates/layout' );
+				$this->getRequest()->setAttribute('selectable', true);
 				break; 
 		}
 	}

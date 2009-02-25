@@ -1,7 +1,15 @@
 @IMPORT url("form.css");
+
+.gsmedia_body {
+	background: #fff; }
+	
+.gsmedia_layout {
+	}
+
+
 /* global layout */
 .gsmedia {
-	margin: 10px; }
+	padding: 10px; }
 
 .gsmedia .navigation {
 	margin: 10px 0; }

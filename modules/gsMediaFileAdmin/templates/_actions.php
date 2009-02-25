@@ -5,7 +5,7 @@
 		<li><a class="ui-state-default ui-corner-all replace" href="<?php echo url_for_admin_file_action( $file, 'replace' ); ?>"> Replace </a></li>
 		<li><a class="ui-state-default ui-corner-all download" href="<?php echo url_for_admin_file_action( $file, 'download' ); ?>"> download </a></li>
 		<li><a class="ui-state-default ui-corner-all delete" href="<?php echo url_for_admin_file_action( $file, 'delete' ); ?>"> Delete </a></li>
-		<?php if ( isset($format) ): ?>
+		<?php if ( isset($format) && $sf_request->getAttribute('selectable') ): ?>
 			<li><a class="ui-state-default ui-corner-all select" href="#" onclick="gsMediaReturn.submit('<?php echo url_for_media($file, $format)?>', '<?php echo $file->getFilename() ?>', '<?php echo $file->getDescription() ?>')  "> Select </a></li>
 		<?php endif; ?>
 		<li><a class="ui-state-default ui-corner-all back" href="<?php echo url_for_admin_media( $file->getgsMediaFolder() ) ?>"> Back </a></li>

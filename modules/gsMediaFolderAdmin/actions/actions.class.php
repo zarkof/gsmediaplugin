@@ -10,13 +10,18 @@ class gsMediaFolderAdminActions extends sfActions
 
 		switch ( $this->getRequest()->getParameter('gs_loader') )
 		{
-			case 'tinymce' :
+			case 'tinymce':
 				$sf_response->addJavascript( '/'.sfConfig::get('sf_rich_text_js_dir', 'sf/tinymce/js').'/tiny_mce_popup.js' );
-				$sf_response->addJavascript( '/gsMediaPlugin/js/tinymce.loader.js' );
+				$sf_response->addJavascript( '/gsMediaPlugin/js/tinymce.loader.js', 'last' );
+				$this->setLayout( sfConfig::get('sf_plugins_dir').'/gsMediaPlugin/templates/layout' );
 				break;
-			case 'gsmedia' :
-				$sf_response->addJavascript( '/gsMediaPlugin/js/jquery.gsmedia.loader.js');
+			case 'gsmedia':
+				$sf_response->addJavascript( '/gsMediaPlugin/js/jquery.gsmedia.loader.js', 'last');
+				$this->setLayout( sfConfig::get('sf_plugins_dir').'/gsMediaPlugin/templates/layout' );
 				break; 
+			case 'admin':
+				
+				break;
 		}
 	}
 	

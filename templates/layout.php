@@ -6,7 +6,9 @@
     <?php include_title() ?>
   	<link rel="shortcut icon" href="/favicon.ico" />
 </head>
-<body>
-	<?php echo $sf_content ?>	
+<body class="gsmedia_body">
+	<div class="gsmedia_layout">
+		<?php echo $sf_content ?>
+	</div>	
 </body>
 </html>

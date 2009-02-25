@@ -13,6 +13,5 @@ class gsMediaAccessActions extends sfActions
 		$response->setContent( $file->getContent( $request->getParameter('format', 'normal') ) );
 		
 		return sfView::NONE;
-		
 	}
 }

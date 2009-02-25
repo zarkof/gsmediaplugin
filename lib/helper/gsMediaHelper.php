@@ -64,7 +64,7 @@ function url_for_media( gsMediaFile $file, $format = 'original', $type = 'relati
 	if ( substr($folder_path, -1) != '/' ) $folder_path .= '/';
 	
 	$file_path = $file->getFormatPath( $format );
-	if ( substr($file_path, -1) != '/' ) $file_path .= '/';
+	if ( substr($file_path, -1) == '/' ) $file_path = substr($file_path, 0, -1);
 	
 	switch ( $type )
 	{
