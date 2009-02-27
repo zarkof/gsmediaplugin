@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base class that represents a row from the 'gs_media_file' table.
+ * Base class that represents a row from the 'gs_media_format' table.
  *
  * 
  *
@@ -11,16 +11,16 @@
  *
  * @package    plugins.gsMediaPlugin.lib.model.om
  */
-abstract class BasegsMediaFile extends BaseObject  implements Persistent {
+abstract class BasegsMediaFormat extends BaseObject  implements Persistent {
 
 
-  const PEER = 'gsMediaFilePeer';
+  const PEER = 'gsMediaFormatPeer';
 
 	/**
 	 * The Peer class.
 	 * Instance provides a convenient way of calling static methods on a class
 	 * that calling code may not be able to identify.
-	 * @var        gsMediaFilePeer
+	 * @var        gsMediaFormatPeer
 	 */
 	protected static $peer;
 
@@ -31,57 +31,40 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	protected $id;
 
 	/**
-	 * The value for the folder_id field.
-	 * @var        int
-	 */
-	protected $folder_id;
-
-	/**
-	 * The value for the filename field.
-	 * @var        string
-	 */
-	protected $filename;
-
-	/**
 	 * The value for the name field.
 	 * @var        string
 	 */
 	protected $name;
 
 	/**
-	 * The value for the description field.
+	 * The value for the code field.
 	 * @var        string
 	 */
-	protected $description;
+	protected $code;
 
 	/**
-	 * The value for the author field.
+	 * The value for the mime_type field.
 	 * @var        string
 	 */
-	protected $author;
+	protected $mime_type;
 
 	/**
-	 * The value for the content_type field.
+	 * The value for the extention field.
 	 * @var        string
 	 */
-	protected $content_type;
+	protected $extention;
 
 	/**
-	 * The value for the created_at field.
+	 * The value for the class_type field.
 	 * @var        string
 	 */
-	protected $created_at;
+	protected $class_type;
 
 	/**
-	 * The value for the updated_at field.
+	 * The value for the settings field.
 	 * @var        string
 	 */
-	protected $updated_at;
-
-	/**
-	 * @var        gsMediaFolder
-	 */
-	protected $agsMediaFolder;
+	protected $settings;
 
 	/**
 	 * @var        array gsMediaFileFormat[] Collection to store aggregation of gsMediaFileFormat objects.
@@ -108,7 +91,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	protected $alreadyInValidation = false;
 
 	/**
-	 * Initializes internal state of BasegsMediaFile object.
+	 * Initializes internal state of BasegsMediaFormat object.
 	 * @see        applyDefaults()
 	 */
 	public function __construct()
@@ -138,26 +121,6 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [folder_id] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getFolderId()
-	{
-		return $this->folder_id;
-	}
-
-	/**
-	 * Get the [filename] column value.
-	 * 
-	 * @return     string
-	 */
-	public function getFilename()
-	{
-		return $this->filename;
-	}
-
-	/**
 	 * Get the [name] column value.
 	 * 
 	 * @return     string
@@ -168,116 +131,60 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [description] column value.
+	 * Get the [code] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getDescription()
+	public function getCode()
 	{
-		return $this->description;
+		return $this->code;
 	}
 
 	/**
-	 * Get the [author] column value.
+	 * Get the [mime_type] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getAuthor()
+	public function getMimeType()
 	{
-		return $this->author;
+		return $this->mime_type;
 	}
 
 	/**
-	 * Get the [content_type] column value.
+	 * Get the [extention] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getContentType()
+	public function getExtention()
 	{
-		return $this->content_type;
+		return $this->extention;
 	}
 
 	/**
-	 * Get the [optionally formatted] temporal [created_at] column value.
+	 * Get the [class_type] column value.
 	 * 
-	 *
-	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
-	 *							If format is NULL, then the raw DateTime object will be returned.
-	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 * @return     string
 	 */
-	public function getCreatedAt($format = 'Y-m-d H:i:s')
+	public function getClassType()
 	{
-		if ($this->created_at === null) {
-			return null;
-		}
-
-
-		if ($this->created_at === '0000-00-00 00:00:00') {
-			// while technically this is not a default value of NULL,
-			// this seems to be closest in meaning.
-			return null;
-		} else {
-			try {
-				$dt = new DateTime($this->created_at);
-			} catch (Exception $x) {
-				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->created_at, true), $x);
-			}
-		}
-
-		if ($format === null) {
-			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-			return $dt;
-		} elseif (strpos($format, '%') !== false) {
-			return strftime($format, $dt->format('U'));
-		} else {
-			return $dt->format($format);
-		}
+		return $this->class_type;
 	}
 
 	/**
-	 * Get the [optionally formatted] temporal [updated_at] column value.
+	 * Get the [settings] column value.
 	 * 
-	 *
-	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
-	 *							If format is NULL, then the raw DateTime object will be returned.
-	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 * @return     string
 	 */
-	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	public function getSettings()
 	{
-		if ($this->updated_at === null) {
-			return null;
-		}
-
-
-		if ($this->updated_at === '0000-00-00 00:00:00') {
-			// while technically this is not a default value of NULL,
-			// this seems to be closest in meaning.
-			return null;
-		} else {
-			try {
-				$dt = new DateTime($this->updated_at);
-			} catch (Exception $x) {
-				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->updated_at, true), $x);
-			}
-		}
-
-		if ($format === null) {
-			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-			return $dt;
-		} elseif (strpos($format, '%') !== false) {
-			return strftime($format, $dt->format('U'));
-		} else {
-			return $dt->format($format);
-		}
+		return $this->settings;
 	}
 
 	/**
 	 * Set the value of [id] column.
 	 * 
 	 * @param      int $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
 	public function setId($v)
 	{
@@ -287,61 +194,17 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 
 		if ($this->id !== $v) {
 			$this->id = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::ID;
+			$this->modifiedColumns[] = gsMediaFormatPeer::ID;
 		}
 
 		return $this;
 	} // setId()
 
 	/**
-	 * Set the value of [folder_id] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
-	 */
-	public function setFolderId($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->folder_id !== $v) {
-			$this->folder_id = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::FOLDER_ID;
-		}
-
-		if ($this->agsMediaFolder !== null && $this->agsMediaFolder->getId() !== $v) {
-			$this->agsMediaFolder = null;
-		}
-
-		return $this;
-	} // setFolderId()
-
-	/**
-	 * Set the value of [filename] column.
-	 * 
-	 * @param      string $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
-	 */
-	public function setFilename($v)
-	{
-		if ($v !== null) {
-			$v = (string) $v;
-		}
-
-		if ($this->filename !== $v) {
-			$this->filename = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::FILENAME;
-		}
-
-		return $this;
-	} // setFilename()
-
-	/**
 	 * Set the value of [name] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
 	public function setName($v)
 	{
@@ -351,169 +214,111 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 
 		if ($this->name !== $v) {
 			$this->name = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::NAME;
+			$this->modifiedColumns[] = gsMediaFormatPeer::NAME;
 		}
 
 		return $this;
 	} // setName()
 
 	/**
-	 * Set the value of [description] column.
+	 * Set the value of [code] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
-	public function setDescription($v)
+	public function setCode($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->description !== $v) {
-			$this->description = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::DESCRIPTION;
+		if ($this->code !== $v) {
+			$this->code = $v;
+			$this->modifiedColumns[] = gsMediaFormatPeer::CODE;
 		}
 
 		return $this;
-	} // setDescription()
+	} // setCode()
 
 	/**
-	 * Set the value of [author] column.
+	 * Set the value of [mime_type] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
-	public function setAuthor($v)
+	public function setMimeType($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->author !== $v) {
-			$this->author = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::AUTHOR;
+		if ($this->mime_type !== $v) {
+			$this->mime_type = $v;
+			$this->modifiedColumns[] = gsMediaFormatPeer::MIME_TYPE;
 		}
 
 		return $this;
-	} // setAuthor()
+	} // setMimeType()
 
 	/**
-	 * Set the value of [content_type] column.
+	 * Set the value of [extention] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
-	public function setContentType($v)
+	public function setExtention($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->content_type !== $v) {
-			$this->content_type = $v;
-			$this->modifiedColumns[] = gsMediaFilePeer::CONTENT_TYPE;
+		if ($this->extention !== $v) {
+			$this->extention = $v;
+			$this->modifiedColumns[] = gsMediaFormatPeer::EXTENTION;
 		}
 
 		return $this;
-	} // setContentType()
+	} // setExtention()
 
 	/**
-	 * Sets the value of [created_at] column to a normalized version of the date/time value specified.
+	 * Set the value of [class_type] column.
 	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @param      string $v new value
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
-	public function setCreatedAt($v)
+	public function setClassType($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
+		if ($v !== null) {
+			$v = (string) $v;
 		}
 
-		if ( $this->created_at !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->created_at !== null && $tmpDt = new DateTime($this->created_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d H:i:s') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->created_at = ($dt ? $dt->format('Y-m-d H:i:s') : null);
-				$this->modifiedColumns[] = gsMediaFilePeer::CREATED_AT;
-			}
-		} // if either are not null
+		if ($this->class_type !== $v) {
+			$this->class_type = $v;
+			$this->modifiedColumns[] = gsMediaFormatPeer::CLASS_TYPE;
+		}
 
 		return $this;
-	} // setCreatedAt()
+	} // setClassType()
 
 	/**
-	 * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
+	 * Set the value of [settings] column.
 	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
-	 * @return     gsMediaFile The current object (for fluent API support)
+	 * @param      string $v new value
+	 * @return     gsMediaFormat The current object (for fluent API support)
 	 */
-	public function setUpdatedAt($v)
+	public function setSettings($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
+		if ($v !== null) {
+			$v = (string) $v;
 		}
 
-		if ( $this->updated_at !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->updated_at !== null && $tmpDt = new DateTime($this->updated_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d H:i:s') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->updated_at = ($dt ? $dt->format('Y-m-d H:i:s') : null);
-				$this->modifiedColumns[] = gsMediaFilePeer::UPDATED_AT;
-			}
-		} // if either are not null
+		if ($this->settings !== $v) {
+			$this->settings = $v;
+			$this->modifiedColumns[] = gsMediaFormatPeer::SETTINGS;
+		}
 
 		return $this;
-	} // setUpdatedAt()
+	} // setSettings()
 
 	/**
 	 * Indicates whether the columns in this object are only set to default values.
@@ -553,14 +358,12 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		try {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->folder_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-			$this->filename = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-			$this->name = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-			$this->description = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-			$this->author = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-			$this->content_type = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
-			$this->created_at = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
-			$this->updated_at = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
+			$this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->code = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->mime_type = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+			$this->extention = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+			$this->class_type = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->settings = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -570,10 +373,10 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 			}
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 9; // 9 = gsMediaFilePeer::NUM_COLUMNS - gsMediaFilePeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 7; // 7 = gsMediaFormatPeer::NUM_COLUMNS - gsMediaFormatPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
-			throw new PropelException("Error populating gsMediaFile object", $e);
+			throw new PropelException("Error populating gsMediaFormat object", $e);
 		}
 	}
 
@@ -593,9 +396,6 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	public function ensureConsistency()
 	{
 
-		if ($this->agsMediaFolder !== null && $this->folder_id !== $this->agsMediaFolder->getId()) {
-			$this->agsMediaFolder = null;
-		}
 	} // ensureConsistency
 
 	/**
@@ -619,13 +419,13 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		// We don't need to alter the object instance pool; we're just modifying this instance
 		// already in the pool.
 
-		$stmt = gsMediaFilePeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+		$stmt = gsMediaFormatPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
 		$row = $stmt->fetch(PDO::FETCH_NUM);
 		$stmt->closeCursor();
 		if (!$row) {
@@ -635,7 +435,6 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->agsMediaFolder = null;
 			$this->collgsMediaFileFormats = null;
 			$this->lastgsMediaFileFormatCriteria = null;
 
@@ -654,7 +453,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	public function delete(PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BasegsMediaFile:delete:pre') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormat:delete:pre') as $callable)
     {
       $ret = call_user_func($callable, $this, $con);
       if ($ret)
@@ -669,12 +468,12 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
 		try {
-			gsMediaFilePeer::doDelete($this, $con);
+			gsMediaFormatPeer::doDelete($this, $con);
 			$this->setDeleted(true);
 			$con->commit();
 		} catch (PropelException $e) {
@@ -683,7 +482,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		}
 	
 
-    foreach (sfMixer::getCallables('BasegsMediaFile:delete:post') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormat:delete:post') as $callable)
     {
       call_user_func($callable, $this, $con);
     }
@@ -705,7 +504,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	public function save(PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BasegsMediaFile:save:pre') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormat:save:pre') as $callable)
     {
       $affectedRows = call_user_func($callable, $this, $con);
       if (is_int($affectedRows))
@@ -715,34 +514,24 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
     }
 
 
-    if ($this->isNew() && !$this->isColumnModified(gsMediaFilePeer::CREATED_AT))
-    {
-      $this->setCreatedAt(time());
-    }
-
-    if ($this->isModified() && !$this->isColumnModified(gsMediaFilePeer::UPDATED_AT))
-    {
-      $this->setUpdatedAt(time());
-    }
-
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
 		try {
 			$affectedRows = $this->doSave($con);
 			$con->commit();
-    foreach (sfMixer::getCallables('BasegsMediaFile:save:post') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormat:save:post') as $callable)
     {
       call_user_func($callable, $this, $con, $affectedRows);
     }
 
-			gsMediaFilePeer::addInstanceToPool($this);
+			gsMediaFormatPeer::addInstanceToPool($this);
 			return $affectedRows;
 		} catch (PropelException $e) {
 			$con->rollBack();
@@ -767,26 +556,14 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		if (!$this->alreadyInSave) {
 			$this->alreadyInSave = true;
 
-			// We call the save method on the following object(s) if they
-			// were passed to this object by their coresponding set
-			// method.  This object relates to these object(s) by a
-			// foreign key reference.
-
-			if ($this->agsMediaFolder !== null) {
-				if ($this->agsMediaFolder->isModified() || $this->agsMediaFolder->isNew()) {
-					$affectedRows += $this->agsMediaFolder->save($con);
-				}
-				$this->setgsMediaFolder($this->agsMediaFolder);
-			}
-
 			if ($this->isNew() ) {
-				$this->modifiedColumns[] = gsMediaFilePeer::ID;
+				$this->modifiedColumns[] = gsMediaFormatPeer::ID;
 			}
 
 			// If this object has been modified, then save it to the database.
 			if ($this->isModified()) {
 				if ($this->isNew()) {
-					$pk = gsMediaFilePeer::doInsert($this, $con);
+					$pk = gsMediaFormatPeer::doInsert($this, $con);
 					$affectedRows += 1; // we are assuming that there is only 1 row per doInsert() which
 										 // should always be true here (even though technically
 										 // BasePeer::doInsert() can insert multiple rows).
@@ -795,7 +572,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 
 					$this->setNew(false);
 				} else {
-					$affectedRows += gsMediaFilePeer::doUpdate($this, $con);
+					$affectedRows += gsMediaFormatPeer::doUpdate($this, $con);
 				}
 
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
@@ -875,19 +652,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 			$failureMap = array();
 
 
-			// We call the validate method on the following object(s) if they
-			// were passed to this object by their coresponding set
-			// method.  This object relates to these object(s) by a
-			// foreign key reference.
-
-			if ($this->agsMediaFolder !== null) {
-				if (!$this->agsMediaFolder->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->agsMediaFolder->getValidationFailures());
-				}
-			}
-
-
-			if (($retval = gsMediaFilePeer::doValidate($this, $columns)) !== true) {
+			if (($retval = gsMediaFormatPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
@@ -918,7 +683,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 */
 	public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = gsMediaFilePeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = gsMediaFormatPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		$field = $this->getByPosition($pos);
 		return $field;
 	}
@@ -937,28 +702,22 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getFolderId();
-				break;
-			case 2:
-				return $this->getFilename();
-				break;
-			case 3:
 				return $this->getName();
 				break;
+			case 2:
+				return $this->getCode();
+				break;
+			case 3:
+				return $this->getMimeType();
+				break;
 			case 4:
-				return $this->getDescription();
+				return $this->getExtention();
 				break;
 			case 5:
-				return $this->getAuthor();
+				return $this->getClassType();
 				break;
 			case 6:
-				return $this->getContentType();
-				break;
-			case 7:
-				return $this->getCreatedAt();
-				break;
-			case 8:
-				return $this->getUpdatedAt();
+				return $this->getSettings();
 				break;
 			default:
 				return null;
@@ -979,17 +738,15 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 */
 	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true)
 	{
-		$keys = gsMediaFilePeer::getFieldNames($keyType);
+		$keys = gsMediaFormatPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getFolderId(),
-			$keys[2] => $this->getFilename(),
-			$keys[3] => $this->getName(),
-			$keys[4] => $this->getDescription(),
-			$keys[5] => $this->getAuthor(),
-			$keys[6] => $this->getContentType(),
-			$keys[7] => $this->getCreatedAt(),
-			$keys[8] => $this->getUpdatedAt(),
+			$keys[1] => $this->getName(),
+			$keys[2] => $this->getCode(),
+			$keys[3] => $this->getMimeType(),
+			$keys[4] => $this->getExtention(),
+			$keys[5] => $this->getClassType(),
+			$keys[6] => $this->getSettings(),
 		);
 		return $result;
 	}
@@ -1006,7 +763,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 */
 	public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = gsMediaFilePeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = gsMediaFormatPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->setByPosition($pos, $value);
 	}
 
@@ -1025,28 +782,22 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setFolderId($value);
-				break;
-			case 2:
-				$this->setFilename($value);
-				break;
-			case 3:
 				$this->setName($value);
 				break;
+			case 2:
+				$this->setCode($value);
+				break;
+			case 3:
+				$this->setMimeType($value);
+				break;
 			case 4:
-				$this->setDescription($value);
+				$this->setExtention($value);
 				break;
 			case 5:
-				$this->setAuthor($value);
+				$this->setClassType($value);
 				break;
 			case 6:
-				$this->setContentType($value);
-				break;
-			case 7:
-				$this->setCreatedAt($value);
-				break;
-			case 8:
-				$this->setUpdatedAt($value);
+				$this->setSettings($value);
 				break;
 		} // switch()
 	}
@@ -1070,17 +821,15 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 */
 	public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = gsMediaFilePeer::getFieldNames($keyType);
+		$keys = gsMediaFormatPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setFolderId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setFilename($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setName($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setDescription($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setAuthor($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setContentType($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setCreatedAt($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setUpdatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setCode($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setMimeType($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setExtention($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setClassType($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setSettings($arr[$keys[6]]);
 	}
 
 	/**
@@ -1090,17 +839,15 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 */
 	public function buildCriteria()
 	{
-		$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
+		$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(gsMediaFilePeer::ID)) $criteria->add(gsMediaFilePeer::ID, $this->id);
-		if ($this->isColumnModified(gsMediaFilePeer::FOLDER_ID)) $criteria->add(gsMediaFilePeer::FOLDER_ID, $this->folder_id);
-		if ($this->isColumnModified(gsMediaFilePeer::FILENAME)) $criteria->add(gsMediaFilePeer::FILENAME, $this->filename);
-		if ($this->isColumnModified(gsMediaFilePeer::NAME)) $criteria->add(gsMediaFilePeer::NAME, $this->name);
-		if ($this->isColumnModified(gsMediaFilePeer::DESCRIPTION)) $criteria->add(gsMediaFilePeer::DESCRIPTION, $this->description);
-		if ($this->isColumnModified(gsMediaFilePeer::AUTHOR)) $criteria->add(gsMediaFilePeer::AUTHOR, $this->author);
-		if ($this->isColumnModified(gsMediaFilePeer::CONTENT_TYPE)) $criteria->add(gsMediaFilePeer::CONTENT_TYPE, $this->content_type);
-		if ($this->isColumnModified(gsMediaFilePeer::CREATED_AT)) $criteria->add(gsMediaFilePeer::CREATED_AT, $this->created_at);
-		if ($this->isColumnModified(gsMediaFilePeer::UPDATED_AT)) $criteria->add(gsMediaFilePeer::UPDATED_AT, $this->updated_at);
+		if ($this->isColumnModified(gsMediaFormatPeer::ID)) $criteria->add(gsMediaFormatPeer::ID, $this->id);
+		if ($this->isColumnModified(gsMediaFormatPeer::NAME)) $criteria->add(gsMediaFormatPeer::NAME, $this->name);
+		if ($this->isColumnModified(gsMediaFormatPeer::CODE)) $criteria->add(gsMediaFormatPeer::CODE, $this->code);
+		if ($this->isColumnModified(gsMediaFormatPeer::MIME_TYPE)) $criteria->add(gsMediaFormatPeer::MIME_TYPE, $this->mime_type);
+		if ($this->isColumnModified(gsMediaFormatPeer::EXTENTION)) $criteria->add(gsMediaFormatPeer::EXTENTION, $this->extention);
+		if ($this->isColumnModified(gsMediaFormatPeer::CLASS_TYPE)) $criteria->add(gsMediaFormatPeer::CLASS_TYPE, $this->class_type);
+		if ($this->isColumnModified(gsMediaFormatPeer::SETTINGS)) $criteria->add(gsMediaFormatPeer::SETTINGS, $this->settings);
 
 		return $criteria;
 	}
@@ -1115,9 +862,9 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 */
 	public function buildPkeyCriteria()
 	{
-		$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
+		$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
 
-		$criteria->add(gsMediaFilePeer::ID, $this->id);
+		$criteria->add(gsMediaFormatPeer::ID, $this->id);
 
 		return $criteria;
 	}
@@ -1148,28 +895,24 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 * If desired, this method can also make copies of all associated (fkey referrers)
 	 * objects.
 	 *
-	 * @param      object $copyObj An object of gsMediaFile (or compatible) type.
+	 * @param      object $copyObj An object of gsMediaFormat (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
 	 * @throws     PropelException
 	 */
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setFolderId($this->folder_id);
-
-		$copyObj->setFilename($this->filename);
-
 		$copyObj->setName($this->name);
 
-		$copyObj->setDescription($this->description);
+		$copyObj->setCode($this->code);
 
-		$copyObj->setAuthor($this->author);
+		$copyObj->setMimeType($this->mime_type);
 
-		$copyObj->setContentType($this->content_type);
+		$copyObj->setExtention($this->extention);
 
-		$copyObj->setCreatedAt($this->created_at);
+		$copyObj->setClassType($this->class_type);
 
-		$copyObj->setUpdatedAt($this->updated_at);
+		$copyObj->setSettings($this->settings);
 
 
 		if ($deepCopy) {
@@ -1201,7 +944,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 * objects.
 	 *
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-	 * @return     gsMediaFile Clone of current object.
+	 * @return     gsMediaFormat Clone of current object.
 	 * @throws     PropelException
 	 */
 	public function copy($deepCopy = false)
@@ -1220,65 +963,14 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 * same instance for all member of this class. The method could therefore
 	 * be static, but this would prevent one from overriding the behavior.
 	 *
-	 * @return     gsMediaFilePeer
+	 * @return     gsMediaFormatPeer
 	 */
 	public function getPeer()
 	{
 		if (self::$peer === null) {
-			self::$peer = new gsMediaFilePeer();
+			self::$peer = new gsMediaFormatPeer();
 		}
 		return self::$peer;
-	}
-
-	/**
-	 * Declares an association between this object and a gsMediaFolder object.
-	 *
-	 * @param      gsMediaFolder $v
-	 * @return     gsMediaFile The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setgsMediaFolder(gsMediaFolder $v = null)
-	{
-		if ($v === null) {
-			$this->setFolderId(NULL);
-		} else {
-			$this->setFolderId($v->getId());
-		}
-
-		$this->agsMediaFolder = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the gsMediaFolder object, it will not be re-added.
-		if ($v !== null) {
-			$v->addgsMediaFile($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated gsMediaFolder object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     gsMediaFolder The associated gsMediaFolder object.
-	 * @throws     PropelException
-	 */
-	public function getgsMediaFolder(PropelPDO $con = null)
-	{
-		if ($this->agsMediaFolder === null && ($this->folder_id !== null)) {
-			$c = new Criteria(gsMediaFolderPeer::DATABASE_NAME);
-			$c->add(gsMediaFolderPeer::ID, $this->folder_id);
-			$this->agsMediaFolder = gsMediaFolderPeer::doSelectOne($c, $con);
-			/* The following can be used additionally to
-			   guarantee the related object contains a reference
-			   to this object.  This level of coupling may, however, be
-			   undesirable since it could result in an only partially populated collection
-			   in the referenced object.
-			   $this->agsMediaFolder->addgsMediaFiles($this);
-			 */
-		}
-		return $this->agsMediaFolder;
 	}
 
 	/**
@@ -1313,8 +1005,8 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	 * Gets an array of gsMediaFileFormat objects which contain a foreign key that references this object.
 	 *
 	 * If this collection has already been initialized with an identical Criteria, it returns the collection.
-	 * Otherwise if this gsMediaFile has previously been saved, it will retrieve
-	 * related gsMediaFileFormats from storage. If this gsMediaFile is new, it will return
+	 * Otherwise if this gsMediaFormat has previously been saved, it will retrieve
+	 * related gsMediaFileFormats from storage. If this gsMediaFormat is new, it will return
 	 * an empty collection or the current collection, the criteria is ignored on a new object.
 	 *
 	 * @param      PropelPDO $con
@@ -1325,7 +1017,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	public function getgsMediaFileFormats($criteria = null, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
-			$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
+			$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
 		}
 		elseif ($criteria instanceof Criteria)
 		{
@@ -1337,7 +1029,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 			   $this->collgsMediaFileFormats = array();
 			} else {
 
-				$criteria->add(gsMediaFileFormatPeer::FILE_ID, $this->id);
+				$criteria->add(gsMediaFileFormatPeer::FORMAT_ID, $this->id);
 
 				gsMediaFileFormatPeer::addSelectColumns($criteria);
 				$this->collgsMediaFileFormats = gsMediaFileFormatPeer::doSelect($criteria, $con);
@@ -1350,7 +1042,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 				// one, just return the collection.
 
 
-				$criteria->add(gsMediaFileFormatPeer::FILE_ID, $this->id);
+				$criteria->add(gsMediaFileFormatPeer::FORMAT_ID, $this->id);
 
 				gsMediaFileFormatPeer::addSelectColumns($criteria);
 				if (!isset($this->lastgsMediaFileFormatCriteria) || !$this->lastgsMediaFileFormatCriteria->equals($criteria)) {
@@ -1374,7 +1066,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	public function countgsMediaFileFormats(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
-			$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
+			$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
 		} else {
 			$criteria = clone $criteria;
 		}
@@ -1390,7 +1082,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 				$count = 0;
 			} else {
 
-				$criteria->add(gsMediaFileFormatPeer::FILE_ID, $this->id);
+				$criteria->add(gsMediaFileFormatPeer::FORMAT_ID, $this->id);
 
 				$count = gsMediaFileFormatPeer::doCount($criteria, $con);
 			}
@@ -1402,7 +1094,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 				// one, just return count of the collection.
 
 
-				$criteria->add(gsMediaFileFormatPeer::FILE_ID, $this->id);
+				$criteria->add(gsMediaFileFormatPeer::FORMAT_ID, $this->id);
 
 				if (!isset($this->lastgsMediaFileFormatCriteria) || !$this->lastgsMediaFileFormatCriteria->equals($criteria)) {
 					$count = gsMediaFileFormatPeer::doCount($criteria, $con);
@@ -1432,7 +1124,7 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		}
 		if (!in_array($l, $this->collgsMediaFileFormats, true)) { // only add it if the **same** object is not already associated
 			array_push($this->collgsMediaFileFormats, $l);
-			$l->setgsMediaFile($this);
+			$l->setgsMediaFormat($this);
 		}
 	}
 
@@ -1440,18 +1132,18 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 	/**
 	 * If this collection has already been initialized with
 	 * an identical criteria, it returns the collection.
-	 * Otherwise if this gsMediaFile is new, it will return
-	 * an empty collection; or if this gsMediaFile has previously
+	 * Otherwise if this gsMediaFormat is new, it will return
+	 * an empty collection; or if this gsMediaFormat has previously
 	 * been saved, it will retrieve related gsMediaFileFormats from storage.
 	 *
 	 * This method is protected by default in order to keep the public
 	 * api reasonable.  You can provide public methods for those you
-	 * actually need in gsMediaFile.
+	 * actually need in gsMediaFormat.
 	 */
-	public function getgsMediaFileFormatsJoingsMediaFormat($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getgsMediaFileFormatsJoingsMediaFile($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
-			$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
+			$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
 		}
 		elseif ($criteria instanceof Criteria)
 		{
@@ -1463,19 +1155,19 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 				$this->collgsMediaFileFormats = array();
 			} else {
 
-				$criteria->add(gsMediaFileFormatPeer::FILE_ID, $this->id);
+				$criteria->add(gsMediaFileFormatPeer::FORMAT_ID, $this->id);
 
-				$this->collgsMediaFileFormats = gsMediaFileFormatPeer::doSelectJoingsMediaFormat($criteria, $con, $join_behavior);
+				$this->collgsMediaFileFormats = gsMediaFileFormatPeer::doSelectJoingsMediaFile($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
 			// called for.  If the criteria is the same as the last
 			// one, just return the collection.
 
-			$criteria->add(gsMediaFileFormatPeer::FILE_ID, $this->id);
+			$criteria->add(gsMediaFileFormatPeer::FORMAT_ID, $this->id);
 
 			if (!isset($this->lastgsMediaFileFormatCriteria) || !$this->lastgsMediaFileFormatCriteria->equals($criteria)) {
-				$this->collgsMediaFileFormats = gsMediaFileFormatPeer::doSelectJoingsMediaFormat($criteria, $con, $join_behavior);
+				$this->collgsMediaFileFormats = gsMediaFileFormatPeer::doSelectJoingsMediaFile($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastgsMediaFileFormatCriteria = $criteria;
@@ -1503,15 +1195,14 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
 		} // if ($deep)
 
 		$this->collgsMediaFileFormats = null;
-			$this->agsMediaFolder = null;
 	}
 
 
   public function __call($method, $arguments)
   {
-    if (!$callable = sfMixer::getCallable('BasegsMediaFile:'.$method))
+    if (!$callable = sfMixer::getCallable('BasegsMediaFormat:'.$method))
     {
-      throw new sfException(sprintf('Call to undefined method BasegsMediaFile::%s', $method));
+      throw new sfException(sprintf('Call to undefined method BasegsMediaFormat::%s', $method));
     }
 
     array_unshift($arguments, $this);
@@ -1520,4 +1211,4 @@ abstract class BasegsMediaFile extends BaseObject  implements Persistent {
   }
 
 
-} // BasegsMediaFile
+} // BasegsMediaFormat

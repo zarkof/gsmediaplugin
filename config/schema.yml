@@ -39,8 +39,7 @@ propel:
     id:                ~
     name:              { type: varchar, size: 255, required: true }
     code:              { type: varchar, size: 50, index: true, required: true }
-    mimetype:          { type: varchar, size: 255, index: true, required: true }
+    mime_type:         { type: varchar, size: 255, index: true }
     extention:         { type: varchar, size: 50, index: true, required: true }
-    class:             { type: varchar, size: 255, index: true, required: true }
+    class_type:        { type: varchar, size: 255, index: true }
     settings:          { type: longvarchar }
-    

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base static class for performing query and update operations on the 'gs_media_file' table.
+ * Base static class for performing query and update operations on the 'gs_media_format' table.
  *
  * 
  *
@@ -11,55 +11,49 @@
  *
  * @package    plugins.gsMediaPlugin.lib.model.om
  */
-abstract class BasegsMediaFilePeer {
+abstract class BasegsMediaFormatPeer {
 
 	/** the default database name for this class */
 	const DATABASE_NAME = 'propel';
 
 	/** the table name for this class */
-	const TABLE_NAME = 'gs_media_file';
+	const TABLE_NAME = 'gs_media_format';
 
 	/** A class that can be returned by this peer. */
-	const CLASS_DEFAULT = 'plugins.gsMediaPlugin.lib.model.gsMediaFile';
+	const CLASS_DEFAULT = 'plugins.gsMediaPlugin.lib.model.gsMediaFormat';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 9;
+	const NUM_COLUMNS = 7;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** the column name for the ID field */
-	const ID = 'gs_media_file.ID';
-
-	/** the column name for the FOLDER_ID field */
-	const FOLDER_ID = 'gs_media_file.FOLDER_ID';
-
-	/** the column name for the FILENAME field */
-	const FILENAME = 'gs_media_file.FILENAME';
+	const ID = 'gs_media_format.ID';
 
 	/** the column name for the NAME field */
-	const NAME = 'gs_media_file.NAME';
+	const NAME = 'gs_media_format.NAME';
 
-	/** the column name for the DESCRIPTION field */
-	const DESCRIPTION = 'gs_media_file.DESCRIPTION';
+	/** the column name for the CODE field */
+	const CODE = 'gs_media_format.CODE';
 
-	/** the column name for the AUTHOR field */
-	const AUTHOR = 'gs_media_file.AUTHOR';
+	/** the column name for the MIME_TYPE field */
+	const MIME_TYPE = 'gs_media_format.MIME_TYPE';
 
-	/** the column name for the CONTENT_TYPE field */
-	const CONTENT_TYPE = 'gs_media_file.CONTENT_TYPE';
+	/** the column name for the EXTENTION field */
+	const EXTENTION = 'gs_media_format.EXTENTION';
 
-	/** the column name for the CREATED_AT field */
-	const CREATED_AT = 'gs_media_file.CREATED_AT';
+	/** the column name for the CLASS_TYPE field */
+	const CLASS_TYPE = 'gs_media_format.CLASS_TYPE';
 
-	/** the column name for the UPDATED_AT field */
-	const UPDATED_AT = 'gs_media_file.UPDATED_AT';
+	/** the column name for the SETTINGS field */
+	const SETTINGS = 'gs_media_format.SETTINGS';
 
 	/**
-	 * An identiy map to hold any loaded instances of gsMediaFile objects.
+	 * An identiy map to hold any loaded instances of gsMediaFormat objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
 	 * queries.
-	 * @var        array gsMediaFile[]
+	 * @var        array gsMediaFormat[]
 	 */
 	public static $instances = array();
 
@@ -76,11 +70,11 @@ abstract class BasegsMediaFilePeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'FolderId', 'Filename', 'Name', 'Description', 'Author', 'ContentType', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'folderId', 'filename', 'name', 'description', 'author', 'contentType', 'createdAt', 'updatedAt', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::FOLDER_ID, self::FILENAME, self::NAME, self::DESCRIPTION, self::AUTHOR, self::CONTENT_TYPE, self::CREATED_AT, self::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'folder_id', 'filename', 'name', 'description', 'author', 'content_type', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Code', 'MimeType', 'Extention', 'ClassType', 'Settings', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'code', 'mimeType', 'extention', 'classType', 'settings', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::CODE, self::MIME_TYPE, self::EXTENTION, self::CLASS_TYPE, self::SETTINGS, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'code', 'mime_type', 'extention', 'class_type', 'settings', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	/**
@@ -90,11 +84,11 @@ abstract class BasegsMediaFilePeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'FolderId' => 1, 'Filename' => 2, 'Name' => 3, 'Description' => 4, 'Author' => 5, 'ContentType' => 6, 'CreatedAt' => 7, 'UpdatedAt' => 8, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'folderId' => 1, 'filename' => 2, 'name' => 3, 'description' => 4, 'author' => 5, 'contentType' => 6, 'createdAt' => 7, 'updatedAt' => 8, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::FOLDER_ID => 1, self::FILENAME => 2, self::NAME => 3, self::DESCRIPTION => 4, self::AUTHOR => 5, self::CONTENT_TYPE => 6, self::CREATED_AT => 7, self::UPDATED_AT => 8, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'folder_id' => 1, 'filename' => 2, 'name' => 3, 'description' => 4, 'author' => 5, 'content_type' => 6, 'created_at' => 7, 'updated_at' => 8, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Code' => 2, 'MimeType' => 3, 'Extention' => 4, 'ClassType' => 5, 'Settings' => 6, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'code' => 2, 'mimeType' => 3, 'extention' => 4, 'classType' => 5, 'settings' => 6, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::CODE => 2, self::MIME_TYPE => 3, self::EXTENTION => 4, self::CLASS_TYPE => 5, self::SETTINGS => 6, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'code' => 2, 'mime_type' => 3, 'extention' => 4, 'class_type' => 5, 'settings' => 6, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	/**
@@ -104,7 +98,7 @@ abstract class BasegsMediaFilePeer {
 	public static function getMapBuilder()
 	{
 		if (self::$mapBuilder === null) {
-			self::$mapBuilder = new gsMediaFileMapBuilder();
+			self::$mapBuilder = new gsMediaFormatMapBuilder();
 		}
 		return self::$mapBuilder;
 	}
@@ -154,12 +148,12 @@ abstract class BasegsMediaFilePeer {
 	 *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
 	 * </code>
 	 * @param      string $alias The alias for the current table.
-	 * @param      string $column The column name for current table. (i.e. gsMediaFilePeer::COLUMN_NAME).
+	 * @param      string $column The column name for current table. (i.e. gsMediaFormatPeer::COLUMN_NAME).
 	 * @return     string
 	 */
 	public static function alias($alias, $column)
 	{
-		return str_replace(gsMediaFilePeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(gsMediaFormatPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	/**
@@ -176,23 +170,19 @@ abstract class BasegsMediaFilePeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(gsMediaFilePeer::ID);
+		$criteria->addSelectColumn(gsMediaFormatPeer::ID);
 
-		$criteria->addSelectColumn(gsMediaFilePeer::FOLDER_ID);
+		$criteria->addSelectColumn(gsMediaFormatPeer::NAME);
 
-		$criteria->addSelectColumn(gsMediaFilePeer::FILENAME);
+		$criteria->addSelectColumn(gsMediaFormatPeer::CODE);
 
-		$criteria->addSelectColumn(gsMediaFilePeer::NAME);
+		$criteria->addSelectColumn(gsMediaFormatPeer::MIME_TYPE);
 
-		$criteria->addSelectColumn(gsMediaFilePeer::DESCRIPTION);
+		$criteria->addSelectColumn(gsMediaFormatPeer::EXTENTION);
 
-		$criteria->addSelectColumn(gsMediaFilePeer::AUTHOR);
+		$criteria->addSelectColumn(gsMediaFormatPeer::CLASS_TYPE);
 
-		$criteria->addSelectColumn(gsMediaFilePeer::CONTENT_TYPE);
-
-		$criteria->addSelectColumn(gsMediaFilePeer::CREATED_AT);
-
-		$criteria->addSelectColumn(gsMediaFilePeer::UPDATED_AT);
+		$criteria->addSelectColumn(gsMediaFormatPeer::SETTINGS);
 
 	}
 
@@ -212,27 +202,27 @@ abstract class BasegsMediaFilePeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(gsMediaFilePeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(gsMediaFormatPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			gsMediaFilePeer::addSelectColumns($criteria);
+			gsMediaFormatPeer::addSelectColumns($criteria);
 		}
 
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 		$criteria->setDbName(self::DATABASE_NAME); // Set the correct dbName
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doCount:doCount') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormatPeer:doCount:doCount') as $callable)
     {
-      call_user_func($callable, 'BasegsMediaFilePeer', $criteria, $con);
+      call_user_func($callable, 'BasegsMediaFormatPeer', $criteria, $con);
     }
 
 
@@ -252,7 +242,7 @@ abstract class BasegsMediaFilePeer {
 	 *
 	 * @param      Criteria $criteria object used to create the SELECT statement.
 	 * @param      PropelPDO $con
-	 * @return     gsMediaFile
+	 * @return     gsMediaFormat
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -260,7 +250,7 @@ abstract class BasegsMediaFilePeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = gsMediaFilePeer::doSelect($critcopy, $con);
+		$objects = gsMediaFormatPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -277,7 +267,7 @@ abstract class BasegsMediaFilePeer {
 	 */
 	public static function doSelect(Criteria $criteria, PropelPDO $con = null)
 	{
-		return gsMediaFilePeer::populateObjects(gsMediaFilePeer::doSelectStmt($criteria, $con));
+		return gsMediaFormatPeer::populateObjects(gsMediaFormatPeer::doSelectStmt($criteria, $con));
 	}
 	/**
 	 * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -295,19 +285,19 @@ abstract class BasegsMediaFilePeer {
 	public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doSelectStmt:doSelectStmt') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormatPeer:doSelectStmt:doSelectStmt') as $callable)
     {
-      call_user_func($callable, 'BasegsMediaFilePeer', $criteria, $con);
+      call_user_func($callable, 'BasegsMediaFormatPeer', $criteria, $con);
     }
 
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		if (!$criteria->hasSelectClause()) {
 			$criteria = clone $criteria;
-			gsMediaFilePeer::addSelectColumns($criteria);
+			gsMediaFormatPeer::addSelectColumns($criteria);
 		}
 
 		// Set the correct dbName
@@ -325,10 +315,10 @@ abstract class BasegsMediaFilePeer {
 	 * to the cache in order to ensure that the same objects are always returned by doSelect*()
 	 * and retrieveByPK*() calls.
 	 *
-	 * @param      gsMediaFile $value A gsMediaFile object.
+	 * @param      gsMediaFormat $value A gsMediaFormat object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(gsMediaFile $obj, $key = null)
+	public static function addInstanceToPool(gsMediaFormat $obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -346,18 +336,18 @@ abstract class BasegsMediaFilePeer {
 	 * methods in your stub classes -- you may need to explicitly remove objects
 	 * from the cache in order to prevent returning objects that no longer exist.
 	 *
-	 * @param      mixed $value A gsMediaFile object or a primary key value.
+	 * @param      mixed $value A gsMediaFormat object or a primary key value.
 	 */
 	public static function removeInstanceFromPool($value)
 	{
 		if (Propel::isInstancePoolingEnabled() && $value !== null) {
-			if (is_object($value) && $value instanceof gsMediaFile) {
+			if (is_object($value) && $value instanceof gsMediaFormat) {
 				$key = (string) $value->getId();
 			} elseif (is_scalar($value)) {
 				// assume we've been passed a primary key
 				$key = (string) $value;
 			} else {
-				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or gsMediaFile object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or gsMediaFormat object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
 				throw $e;
 			}
 
@@ -372,7 +362,7 @@ abstract class BasegsMediaFilePeer {
 	 * a multi-column primary key, a serialize()d version of the primary key will be returned.
 	 *
 	 * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-	 * @return     gsMediaFile Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+	 * @return     gsMediaFormat Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
 	 * @see        getPrimaryKeyHash()
 	 */
 	public static function getInstanceFromPool($key)
@@ -426,12 +416,12 @@ abstract class BasegsMediaFilePeer {
 		$results = array();
 	
 		// set the class once to avoid overhead in the loop
-		$cls = gsMediaFilePeer::getOMClass();
+		$cls = gsMediaFormatPeer::getOMClass();
 		$cls = substr('.'.$cls, strrpos('.'.$cls, '.') + 1);
 		// populate the object(s)
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key = gsMediaFilePeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj = gsMediaFilePeer::getInstanceFromPool($key))) {
+			$key = gsMediaFormatPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj = gsMediaFormatPeer::getInstanceFromPool($key))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://propel.phpdb.org/trac/ticket/509
 				// $obj->hydrate($row, 0, true); // rehydrate
@@ -441,280 +431,16 @@ abstract class BasegsMediaFilePeer {
 				$obj = new $cls();
 				$obj->hydrate($row);
 				$results[] = $obj;
-				gsMediaFilePeer::addInstanceToPool($obj, $key);
+				gsMediaFormatPeer::addInstanceToPool($obj, $key);
 			} // if key exists
 		}
 		$stmt->closeCursor();
 		return $results;
 	}
 
-	/**
-	 * Returns the number of rows matching criteria, joining the related gsMediaFolder table
-	 *
-	 * @param      Criteria $c
-	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     int Number of matching rows.
-	 */
-	public static function doCountJoingsMediaFolder(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		// we're going to modify criteria, so copy it first
-		$criteria = clone $criteria;
-
-		// We need to set the primary table name, since in the case that there are no WHERE columns
-		// it will be impossible for the BasePeer::createSelectSql() method to determine which
-		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(gsMediaFilePeer::TABLE_NAME);
-
-		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->setDistinct();
-		}
-
-		if (!$criteria->hasSelectClause()) {
-			gsMediaFilePeer::addSelectColumns($criteria);
-		}
-
-		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-		// Set the correct dbName
-		$criteria->setDbName(self::DATABASE_NAME);
-
-		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
-		}
-
-		$criteria->addJoin(array(gsMediaFilePeer::FOLDER_ID,), array(gsMediaFolderPeer::ID,), $join_behavior);
-
-
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doCount:doCount') as $callable)
-    {
-      call_user_func($callable, 'BasegsMediaFilePeer', $criteria, $con);
-    }
-
-
-		$stmt = BasePeer::doCount($criteria, $con);
-
-		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$count = (int) $row[0];
-		} else {
-			$count = 0; // no rows returned; we infer that means 0 matches.
-		}
-		$stmt->closeCursor();
-		return $count;
-	}
-
-
-	/**
-	 * Selects a collection of gsMediaFile objects pre-filled with their gsMediaFolder objects.
-	 * @param      Criteria  $c
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of gsMediaFile objects.
-	 * @throws     PropelException Any exceptions caught during processing will be
-	 *		 rethrown wrapped into a PropelException.
-	 */
-	public static function doSelectJoingsMediaFolder(Criteria $c, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doSelectJoin:doSelectJoin') as $callable)
-    {
-      call_user_func($callable, 'BasegsMediaFilePeer', $c, $con);
-    }
-
-
-		$c = clone $c;
-
-		// Set the correct dbName if it has not been overridden
-		if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		gsMediaFilePeer::addSelectColumns($c);
-		$startcol = (gsMediaFilePeer::NUM_COLUMNS - gsMediaFilePeer::NUM_LAZY_LOAD_COLUMNS);
-		gsMediaFolderPeer::addSelectColumns($c);
-
-		$c->addJoin(array(gsMediaFilePeer::FOLDER_ID,), array(gsMediaFolderPeer::ID,), $join_behavior);
-		$stmt = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = gsMediaFilePeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = gsMediaFilePeer::getInstanceFromPool($key1))) {
-				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://propel.phpdb.org/trac/ticket/509
-				// $obj1->hydrate($row, 0, true); // rehydrate
-			} else {
-
-				$omClass = gsMediaFilePeer::getOMClass();
-
-				$cls = substr('.'.$omClass, strrpos('.'.$omClass, '.') + 1);
-				$obj1 = new $cls();
-				$obj1->hydrate($row);
-				gsMediaFilePeer::addInstanceToPool($obj1, $key1);
-			} // if $obj1 already loaded
-
-			$key2 = gsMediaFolderPeer::getPrimaryKeyHashFromRow($row, $startcol);
-			if ($key2 !== null) {
-				$obj2 = gsMediaFolderPeer::getInstanceFromPool($key2);
-				if (!$obj2) {
-
-					$omClass = gsMediaFolderPeer::getOMClass();
-
-					$cls = substr('.'.$omClass, strrpos('.'.$omClass, '.') + 1);
-					$obj2 = new $cls();
-					$obj2->hydrate($row, $startcol);
-					gsMediaFolderPeer::addInstanceToPool($obj2, $key2);
-				} // if obj2 already loaded
-
-				// Add the $obj1 (gsMediaFile) to $obj2 (gsMediaFolder)
-				$obj2->addgsMediaFile($obj1);
-
-			} // if joined row was not null
-
-			$results[] = $obj1;
-		}
-		$stmt->closeCursor();
-		return $results;
-	}
-
-
-	/**
-	 * Returns the number of rows matching criteria, joining all related tables
-	 *
-	 * @param      Criteria $c
-	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     int Number of matching rows.
-	 */
-	public static function doCountJoinAll(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		// we're going to modify criteria, so copy it first
-		$criteria = clone $criteria;
-
-		// We need to set the primary table name, since in the case that there are no WHERE columns
-		// it will be impossible for the BasePeer::createSelectSql() method to determine which
-		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(gsMediaFilePeer::TABLE_NAME);
-
-		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->setDistinct();
-		}
-
-		if (!$criteria->hasSelectClause()) {
-			gsMediaFilePeer::addSelectColumns($criteria);
-		}
-
-		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-		// Set the correct dbName
-		$criteria->setDbName(self::DATABASE_NAME);
-
-		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
-		}
-
-		$criteria->addJoin(array(gsMediaFilePeer::FOLDER_ID,), array(gsMediaFolderPeer::ID,), $join_behavior);
-
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doCount:doCount') as $callable)
-    {
-      call_user_func($callable, 'BasegsMediaFilePeer', $criteria, $con);
-    }
-
-
-		$stmt = BasePeer::doCount($criteria, $con);
-
-		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$count = (int) $row[0];
-		} else {
-			$count = 0; // no rows returned; we infer that means 0 matches.
-		}
-		$stmt->closeCursor();
-		return $count;
-	}
-
-	/**
-	 * Selects a collection of gsMediaFile objects pre-filled with all related objects.
-	 *
-	 * @param      Criteria  $c
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of gsMediaFile objects.
-	 * @throws     PropelException Any exceptions caught during processing will be
-	 *		 rethrown wrapped into a PropelException.
-	 */
-	public static function doSelectJoinAll(Criteria $c, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doSelectJoinAll:doSelectJoinAll') as $callable)
-    {
-      call_user_func($callable, 'BasegsMediaFilePeer', $c, $con);
-    }
-
-
-		$c = clone $c;
-
-		// Set the correct dbName if it has not been overridden
-		if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		gsMediaFilePeer::addSelectColumns($c);
-		$startcol2 = (gsMediaFilePeer::NUM_COLUMNS - gsMediaFilePeer::NUM_LAZY_LOAD_COLUMNS);
-
-		gsMediaFolderPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + (gsMediaFolderPeer::NUM_COLUMNS - gsMediaFolderPeer::NUM_LAZY_LOAD_COLUMNS);
-
-		$c->addJoin(array(gsMediaFilePeer::FOLDER_ID,), array(gsMediaFolderPeer::ID,), $join_behavior);
-		$stmt = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = gsMediaFilePeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = gsMediaFilePeer::getInstanceFromPool($key1))) {
-				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://propel.phpdb.org/trac/ticket/509
-				// $obj1->hydrate($row, 0, true); // rehydrate
-			} else {
-				$omClass = gsMediaFilePeer::getOMClass();
-
-				$cls = substr('.'.$omClass, strrpos('.'.$omClass, '.') + 1);
-				$obj1 = new $cls();
-				$obj1->hydrate($row);
-				gsMediaFilePeer::addInstanceToPool($obj1, $key1);
-			} // if obj1 already loaded
-
-			// Add objects for joined gsMediaFolder rows
-
-			$key2 = gsMediaFolderPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-			if ($key2 !== null) {
-				$obj2 = gsMediaFolderPeer::getInstanceFromPool($key2);
-				if (!$obj2) {
-
-					$omClass = gsMediaFolderPeer::getOMClass();
-
-
-					$cls = substr('.'.$omClass, strrpos('.'.$omClass, '.') + 1);
-					$obj2 = new $cls();
-					$obj2->hydrate($row, $startcol2);
-					gsMediaFolderPeer::addInstanceToPool($obj2, $key2);
-				} // if obj2 loaded
-
-				// Add the $obj1 (gsMediaFile) to the collection in $obj2 (gsMediaFolder)
-				$obj2->addgsMediaFile($obj1);
-			} // if joined row not null
-
-			$results[] = $obj1;
-		}
-		$stmt->closeCursor();
-		return $results;
-	}
-
-
   static public function getUniqueColumnNames()
   {
-    return array(array('folder_id', 'filename'));
+    return array();
   }
 	/**
 	 * Returns the TableMap related to this peer.
@@ -739,13 +465,13 @@ abstract class BasegsMediaFilePeer {
 	 */
 	public static function getOMClass()
 	{
-		return gsMediaFilePeer::CLASS_DEFAULT;
+		return gsMediaFormatPeer::CLASS_DEFAULT;
 	}
 
 	/**
-	 * Method perform an INSERT on the database, given a gsMediaFile or Criteria object.
+	 * Method perform an INSERT on the database, given a gsMediaFormat or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or gsMediaFile object containing data that is used to create the INSERT statement.
+	 * @param      mixed $values Criteria or gsMediaFormat object containing data that is used to create the INSERT statement.
 	 * @param      PropelPDO $con the PropelPDO connection to use
 	 * @return     mixed The new primary key.
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -754,9 +480,9 @@ abstract class BasegsMediaFilePeer {
 	public static function doInsert($values, PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doInsert:pre') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormatPeer:doInsert:pre') as $callable)
     {
-      $ret = call_user_func($callable, 'BasegsMediaFilePeer', $values, $con);
+      $ret = call_user_func($callable, 'BasegsMediaFormatPeer', $values, $con);
       if (false !== $ret)
       {
         return $ret;
@@ -765,17 +491,17 @@ abstract class BasegsMediaFilePeer {
 
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 		} else {
-			$criteria = $values->buildCriteria(); // build Criteria from gsMediaFile object
+			$criteria = $values->buildCriteria(); // build Criteria from gsMediaFormat object
 		}
 
-		if ($criteria->containsKey(gsMediaFilePeer::ID) && $criteria->keyContainsValue(gsMediaFilePeer::ID) ) {
-			throw new PropelException('Cannot insert a value for auto-increment primary key ('.gsMediaFilePeer::ID.')');
+		if ($criteria->containsKey(gsMediaFormatPeer::ID) && $criteria->keyContainsValue(gsMediaFormatPeer::ID) ) {
+			throw new PropelException('Cannot insert a value for auto-increment primary key ('.gsMediaFormatPeer::ID.')');
 		}
 
 
@@ -794,18 +520,18 @@ abstract class BasegsMediaFilePeer {
 		}
 
 		
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doInsert:post') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormatPeer:doInsert:post') as $callable)
     {
-      call_user_func($callable, 'BasegsMediaFilePeer', $values, $con, $pk);
+      call_user_func($callable, 'BasegsMediaFormatPeer', $values, $con, $pk);
     }
 
     return $pk;
 	}
 
 	/**
-	 * Method perform an UPDATE on the database, given a gsMediaFile or Criteria object.
+	 * Method perform an UPDATE on the database, given a gsMediaFormat or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or gsMediaFile object containing data that is used to create the UPDATE statement.
+	 * @param      mixed $values Criteria or gsMediaFormat object containing data that is used to create the UPDATE statement.
 	 * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -814,9 +540,9 @@ abstract class BasegsMediaFilePeer {
 	public static function doUpdate($values, PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doUpdate:pre') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormatPeer:doUpdate:pre') as $callable)
     {
-      $ret = call_user_func($callable, 'BasegsMediaFilePeer', $values, $con);
+      $ret = call_user_func($callable, 'BasegsMediaFormatPeer', $values, $con);
       if (false !== $ret)
       {
         return $ret;
@@ -825,7 +551,7 @@ abstract class BasegsMediaFilePeer {
 
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$selectCriteria = new Criteria(self::DATABASE_NAME);
@@ -833,10 +559,10 @@ abstract class BasegsMediaFilePeer {
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 
-			$comparison = $criteria->getComparison(gsMediaFilePeer::ID);
-			$selectCriteria->add(gsMediaFilePeer::ID, $criteria->remove(gsMediaFilePeer::ID), $comparison);
+			$comparison = $criteria->getComparison(gsMediaFormatPeer::ID);
+			$selectCriteria->add(gsMediaFormatPeer::ID, $criteria->remove(gsMediaFormatPeer::ID), $comparison);
 
-		} else { // $values is gsMediaFile object
+		} else { // $values is gsMediaFormat object
 			$criteria = $values->buildCriteria(); // gets full criteria
 			$selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
 		}
@@ -847,31 +573,31 @@ abstract class BasegsMediaFilePeer {
 		$ret = BasePeer::doUpdate($selectCriteria, $criteria, $con);
 	
 
-    foreach (sfMixer::getCallables('BasegsMediaFilePeer:doUpdate:post') as $callable)
+    foreach (sfMixer::getCallables('BasegsMediaFormatPeer:doUpdate:post') as $callable)
     {
-      call_user_func($callable, 'BasegsMediaFilePeer', $values, $con, $ret);
+      call_user_func($callable, 'BasegsMediaFormatPeer', $values, $con, $ret);
     }
 
     return $ret;
   }
 
 	/**
-	 * Method to DELETE all rows from the gs_media_file table.
+	 * Method to DELETE all rows from the gs_media_format table.
 	 *
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 */
 	public static function doDeleteAll($con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		$affectedRows = 0; // initialize var to track total num of affected rows
 		try {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
-			$affectedRows += gsMediaFilePeer::doOnDeleteCascade(new Criteria(gsMediaFilePeer::DATABASE_NAME), $con);
-			$affectedRows += BasePeer::doDeleteAll(gsMediaFilePeer::TABLE_NAME, $con);
+			$affectedRows += gsMediaFormatPeer::doOnDeleteCascade(new Criteria(gsMediaFormatPeer::DATABASE_NAME), $con);
+			$affectedRows += BasePeer::doDeleteAll(gsMediaFormatPeer::TABLE_NAME, $con);
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -881,9 +607,9 @@ abstract class BasegsMediaFilePeer {
 	}
 
 	/**
-	 * Method perform a DELETE on the database, given a gsMediaFile or Criteria object OR a primary key value.
+	 * Method perform a DELETE on the database, given a gsMediaFormat or Criteria object OR a primary key value.
 	 *
-	 * @param      mixed $values Criteria or gsMediaFile object or primary key or array of primary keys
+	 * @param      mixed $values Criteria or gsMediaFormat object or primary key or array of primary keys
 	 *              which is used to create the DELETE statement
 	 * @param      PropelPDO $con the connection to use
 	 * @return     int 	The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -894,20 +620,20 @@ abstract class BasegsMediaFilePeer {
 	 public static function doDelete($values, PropelPDO $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			// invalidate the cache for all objects of this type, since we have no
 			// way of knowing (without running a query) what objects should be invalidated
 			// from the cache based on this Criteria.
-			gsMediaFilePeer::clearInstancePool();
+			gsMediaFormatPeer::clearInstancePool();
 
 			// rename for clarity
 			$criteria = clone $values;
-		} elseif ($values instanceof gsMediaFile) {
+		} elseif ($values instanceof gsMediaFormat) {
 			// invalidate the cache for this single object
-			gsMediaFilePeer::removeInstanceFromPool($values);
+			gsMediaFormatPeer::removeInstanceFromPool($values);
 			// create criteria based on pk values
 			$criteria = $values->buildPkeyCriteria();
 		} else {
@@ -916,11 +642,11 @@ abstract class BasegsMediaFilePeer {
 
 
 			$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(gsMediaFilePeer::ID, (array) $values, Criteria::IN);
+			$criteria->add(gsMediaFormatPeer::ID, (array) $values, Criteria::IN);
 
 			foreach ((array) $values as $singleval) {
 				// we can invalidate the cache for this single object
-				gsMediaFilePeer::removeInstanceFromPool($singleval);
+				gsMediaFormatPeer::removeInstanceFromPool($singleval);
 			}
 		}
 
@@ -933,15 +659,15 @@ abstract class BasegsMediaFilePeer {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
-			$affectedRows += gsMediaFilePeer::doOnDeleteCascade($criteria, $con);
+			$affectedRows += gsMediaFormatPeer::doOnDeleteCascade($criteria, $con);
 			
 				// Because this db requires some delete cascade/set null emulation, we have to
 				// clear the cached instance *after* the emulation has happened (since
 				// instances get re-added by the select statement contained therein).
 				if ($values instanceof Criteria) {
-					gsMediaFilePeer::clearInstancePool();
+					gsMediaFormatPeer::clearInstancePool();
 				} else { // it's a PK or object
-					gsMediaFilePeer::removeInstanceFromPool($values);
+					gsMediaFormatPeer::removeInstanceFromPool($values);
 				}
 			
 			$affectedRows += BasePeer::doDelete($criteria, $con);
@@ -976,38 +702,38 @@ abstract class BasegsMediaFilePeer {
 		$affectedRows = 0;
 
 		// first find the objects that are implicated by the $criteria
-		$objects = gsMediaFilePeer::doSelect($criteria, $con);
+		$objects = gsMediaFormatPeer::doSelect($criteria, $con);
 		foreach ($objects as $obj) {
 
 
 			// delete related gsMediaFileFormat objects
 			$c = new Criteria(gsMediaFileFormatPeer::DATABASE_NAME);
 			
-			$c->add(gsMediaFileFormatPeer::FILE_ID, $obj->getId());
+			$c->add(gsMediaFileFormatPeer::FORMAT_ID, $obj->getId());
 			$affectedRows += gsMediaFileFormatPeer::doDelete($c, $con);
 		}
 		return $affectedRows;
 	}
 
 	/**
-	 * Validates all modified columns of given gsMediaFile object.
+	 * Validates all modified columns of given gsMediaFormat object.
 	 * If parameter $columns is either a single column name or an array of column names
 	 * than only those columns are validated.
 	 *
 	 * NOTICE: This does not apply to primary or foreign keys for now.
 	 *
-	 * @param      gsMediaFile $obj The object to validate.
+	 * @param      gsMediaFormat $obj The object to validate.
 	 * @param      mixed $cols Column name or array of column names.
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(gsMediaFile $obj, $cols = null)
+	public static function doValidate(gsMediaFormat $obj, $cols = null)
 	{
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(gsMediaFilePeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(gsMediaFilePeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(gsMediaFormatPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(gsMediaFormatPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -1023,11 +749,11 @@ abstract class BasegsMediaFilePeer {
 
 		}
 
-		$res =  BasePeer::doValidate(gsMediaFilePeer::DATABASE_NAME, gsMediaFilePeer::TABLE_NAME, $columns);
+		$res =  BasePeer::doValidate(gsMediaFormatPeer::DATABASE_NAME, gsMediaFormatPeer::TABLE_NAME, $columns);
     if ($res !== true) {
         $request = sfContext::getInstance()->getRequest();
         foreach ($res as $failed) {
-            $col = gsMediaFilePeer::translateFieldname($failed->getColumn(), BasePeer::TYPE_COLNAME, BasePeer::TYPE_PHPNAME);
+            $col = gsMediaFormatPeer::translateFieldname($failed->getColumn(), BasePeer::TYPE_COLNAME, BasePeer::TYPE_PHPNAME);
         }
     }
 
@@ -1039,23 +765,23 @@ abstract class BasegsMediaFilePeer {
 	 *
 	 * @param      int $pk the primary key.
 	 * @param      PropelPDO $con the connection to use
-	 * @return     gsMediaFile
+	 * @return     gsMediaFormat
 	 */
 	public static function retrieveByPK($pk, PropelPDO $con = null)
 	{
 
-		if (null !== ($obj = gsMediaFilePeer::getInstanceFromPool((string) $pk))) {
+		if (null !== ($obj = gsMediaFormatPeer::getInstanceFromPool((string) $pk))) {
 			return $obj;
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
-		$criteria->add(gsMediaFilePeer::ID, $pk);
+		$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
+		$criteria->add(gsMediaFormatPeer::ID, $pk);
 
-		$v = gsMediaFilePeer::doSelect($criteria, $con);
+		$v = gsMediaFormatPeer::doSelect($criteria, $con);
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
@@ -1071,30 +797,30 @@ abstract class BasegsMediaFilePeer {
 	public static function retrieveByPKs($pks, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(gsMediaFilePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(gsMediaFormatPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		$objs = null;
 		if (empty($pks)) {
 			$objs = array();
 		} else {
-			$criteria = new Criteria(gsMediaFilePeer::DATABASE_NAME);
-			$criteria->add(gsMediaFilePeer::ID, $pks, Criteria::IN);
-			$objs = gsMediaFilePeer::doSelect($criteria, $con);
+			$criteria = new Criteria(gsMediaFormatPeer::DATABASE_NAME);
+			$criteria->add(gsMediaFormatPeer::ID, $pks, Criteria::IN);
+			$objs = gsMediaFormatPeer::doSelect($criteria, $con);
 		}
 		return $objs;
 	}
 
-} // BasegsMediaFilePeer
+} // BasegsMediaFormatPeer
 
 // This is the static code needed to register the MapBuilder for this table with the main Propel class.
 //
-// NOTE: This static code cannot call methods on the gsMediaFilePeer class, because it is not defined yet.
-// If you need to use overridden methods, you can add this code to the bottom of the gsMediaFilePeer class:
+// NOTE: This static code cannot call methods on the gsMediaFormatPeer class, because it is not defined yet.
+// If you need to use overridden methods, you can add this code to the bottom of the gsMediaFormatPeer class:
 //
-// Propel::getDatabaseMap(gsMediaFilePeer::DATABASE_NAME)->addTableBuilder(gsMediaFilePeer::TABLE_NAME, gsMediaFilePeer::getMapBuilder());
+// Propel::getDatabaseMap(gsMediaFormatPeer::DATABASE_NAME)->addTableBuilder(gsMediaFormatPeer::TABLE_NAME, gsMediaFormatPeer::getMapBuilder());
 //
 // Doing so will effectively overwrite the registration below.
 
-Propel::getDatabaseMap(BasegsMediaFilePeer::DATABASE_NAME)->addTableBuilder(BasegsMediaFilePeer::TABLE_NAME, BasegsMediaFilePeer::getMapBuilder());
+Propel::getDatabaseMap(BasegsMediaFormatPeer::DATABASE_NAME)->addTableBuilder(BasegsMediaFormatPeer::TABLE_NAME, BasegsMediaFormatPeer::getMapBuilder());
 
